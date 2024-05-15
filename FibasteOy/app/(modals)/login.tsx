@@ -1,17 +1,11 @@
-import {
-  View,
-  TextInput,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
-import React from "react";
-import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
+import { View, TextInput, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Colors from "@/constants/Colors";
-import { defaultStyles } from "@/constants/Styles";
 import { Ionicons } from "@expo/vector-icons";
 import { useOAuth } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
+
+import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
+import { defaultStyles } from "@/constants/Styles";
 
 enum Strategy {
   Apple = "oauth_apple",
@@ -23,12 +17,9 @@ const Page = () => {
   useWarmUpBrowser();
 
   const router = useRouter();
-
   const { startOAuthFlow: appleAuth } = useOAuth({ strategy: "oauth_apple" });
   const { startOAuthFlow: googleAuth } = useOAuth({ strategy: "oauth_google" });
-  const { startOAuthFlow: linkedinAuth } = useOAuth({
-    strategy: "oauth_linkedin",
-  });
+  const { startOAuthFlow: linkedinAuth } = useOAuth({ strategy: "oauth_linkedin" });
 
   const onSelectAuth = async (strategy: Strategy) => {
     const selectedAuth = {
@@ -39,10 +30,6 @@ const Page = () => {
 
     try {
       const { createdSessionId, setActive } = await selectedAuth();
-      console.log(
-        "test ~ file: login.tsx:31 ~ onSelecAuth ~ createdSessionId:",
-        createdSessionId
-      );
 
       if (createdSessionId) {
         setActive!({ session: createdSessionId });
@@ -118,6 +105,7 @@ const Page = () => {
         </TouchableOpacity>
 
         {/* THIS IS THE LINKEDIN ONE */}
+        { /*Todo: Implement Linkedin OAuth flow here by clerk guidelines */ }
         <TouchableOpacity
           style={styles.btnOutline}
           onPress={() => onSelectAuth(Strategy.Linkedin)}

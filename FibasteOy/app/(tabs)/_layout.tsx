@@ -1,12 +1,7 @@
-import { View, Text } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
-import {
-  FontAwesome,
-  Ionicons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
 
 const Layout = () => {
   return (
