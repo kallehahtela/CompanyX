@@ -14,7 +14,7 @@ const Page = () => {
         header: () => <ExploreHeader />,
        }}
       />
-      <Listings listings={[]}/>
+      <Listings listings={listings}/>
     </View>
   );
 };
