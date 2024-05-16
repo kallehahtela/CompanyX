@@ -9,7 +9,7 @@ const Layout = () => {
       screenOptions={{
         tabBarActiveTintColor: Colors.fibasteBlue,
         tabBarLabelStyle: {
-          fontFamily: "PoeOne",
+          fontFamily: "TE",
         },
       }}
     >

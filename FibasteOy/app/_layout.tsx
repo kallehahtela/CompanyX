@@ -1,3 +1,4 @@
+import { StatusBar } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { Stack, useRouter } from "expo-router";
@@ -31,7 +32,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    PoeOne: require("../assets/fonts/PoetsenOne-Regular.ttf"),
+    TE: require('../assets/fonts/Teachers-VariableFont_wght.ttf'),
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -50,12 +51,15 @@ export default function RootLayout() {
   }
 
   return (
-    <ClerkProvider
-      publishableKey={EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
-      tokenCache={tokenCache}
-    >
-      <RootLayoutNav />
-    </ClerkProvider>
+    <>
+    <StatusBar barStyle="dark-content" />
+      <ClerkProvider
+        publishableKey={EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
+        tokenCache={tokenCache}
+      >
+        <RootLayoutNav />
+      </ClerkProvider>
+    </>
   );
 }
 
@@ -79,7 +83,7 @@ function RootLayoutNav() {
         options={{
           title: "Login or sign up",
           headerTitleStyle: {
-            fontFamily: "PoeOne",
+            fontFamily: "TE",
           },
           presentation: "modal",
           headerLeft: () => (

@@ -1,15 +1,20 @@
-import { View, Text } from "react-native";
-import React from "react";
-import { Link } from "expo-router";
+import { useState } from "react";
+import { View } from "react-native";
+import { Stack } from "expo-router";
+
+import ExploreHeader from "@/components/ExploreHeader";
+import Listings from "@/components/Listings";
 
 const Page = () => {
+  const [listings, setListings] = useState([]);
+
   return (
-    <View>
-      <Link href={"/(modals)/login"}>Login</Link>
-
-      <Link href={"/(modals)/booking"}>Booking</Link>
-
-      <Link href={"/listing/1337"}>Listng details</Link>
+    <View style={{ flex: 1, marginTop: 60 }}>
+      <Stack.Screen options={{
+        header: () => <ExploreHeader />,
+       }}
+      />
+      <Listings listings={[]}/>
     </View>
   );
 };
