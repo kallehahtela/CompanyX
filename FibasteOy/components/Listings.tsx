@@ -29,23 +29,27 @@ const Listings = ({ listings = DummyTasks }: Props) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, backgroundColor: Colors.white }}>
       {taskData.map((DummyTasks: any) => (
-        <View style={styles.card} key={DummyTasks.id}>
-          <View style={styles.imageContainer}>
-            <ImageBackground source={DummyTasks.image} style={styles.image} >
-                <View style={styles.header}>
-                  <View style={styles.headerBorder}>
-                    <Text>Title: {DummyTasks.title}</Text>
-                  </View>
+        <View key={DummyTasks.id}>
+          <View style={styles.card}>
+            <View style={styles.imageContainer}>
+              <ImageBackground source={DummyTasks.image} style={styles.image} >
+                  <View style={styles.header}>
+                    <View style={styles.headerBorder}>
+                      <Text>Title: {DummyTasks.title}</Text>
+                    </View>
 
-                  <View style={styles.headerBorder}>
-                    <Ionicons name="heart-outline" size={20} />
+                    <View style={styles.headerBorder}>
+                      <Ionicons name="heart-outline" size={20} />
+                    </View>
                   </View>
-                </View>
-                <Text>Duration: {DummyTasks.duration}</Text>
-                <Text>Address: {DummyTasks.address}</Text>
-            </ImageBackground>
+              </ImageBackground>
+            </View>
           </View>
-            
+          <View style={styles.infoContainer}>
+              <Text>Price: {DummyTasks.price}</Text>
+              <Text>Duration: {DummyTasks.duration}</Text>
+              <Text>Address: {DummyTasks.address}</Text>
+          </View>
         </View>
       ))}
     </ScrollView>
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 40,
     marginHorizontal: 30,
-    marginBottom: 50,
+    marginBottom: 13,
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2,},
     shadowOpacity: 0.25,
@@ -91,7 +95,12 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: 'cover',
-  }
+  },
+  infoContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    paddingLeft: 40,
+  },
 });
 
 export default Listings;
