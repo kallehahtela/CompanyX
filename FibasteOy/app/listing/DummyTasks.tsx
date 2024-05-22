@@ -1,10 +1,11 @@
-import Image1 from '../../assets/Dummy_Images/dog1.jpg';
-import Image2 from '../../assets/Dummy_Images/grass1.jpg';
-import Image3 from '../../assets/Dummy_Images/kid1.jpg';
-import Image4 from '../../assets/Dummy_Images/car1.jpg';
-import Image5 from '../../assets/Dummy_Images/groceries1.jpg';
+import Image1 from '@/assets/Dummy_Images/dog1.jpg';
+import Image2 from '@/assets/Dummy_Images/grass1.jpg';
+import Image3 from '@/assets/Dummy_Images/kid1.jpg';
+import Image4 from '@/assets/Dummy_Images/car1.jpg';
+import Image5 from '@/assets/Dummy_Images/groceries1.jpg';
 
 const DummyTasks = [
+
     {
         id: 1,
         title: 'Task 1',

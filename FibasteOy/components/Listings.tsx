@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.light_grey,
     borderWidth: 1,
     borderRadius: 20,
-    marginTop: 40,
+    marginTop: 70,
     marginHorizontal: 30,
     marginBottom: 13,
     shadowColor: Colors.black,

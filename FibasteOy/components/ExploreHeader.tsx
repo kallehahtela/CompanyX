@@ -20,14 +20,34 @@ const ExploreHeader = () => {
                         </View>
                     </TouchableOpacity>
                 </Link>
-                <TouchableOpacity style={styles.filterBtn}>
-                    <Ionicons name="filter-outline" size={24}/>
+                <TouchableOpacity 
+                    style={styles.filterBtn}
+                    onPress={(() => console.log('FILTER BUTTON'))}>
+                    <Ionicons name="filter-outline" size={24} color={Colors.dark_grey}/>
                 </TouchableOpacity>
             </View>
 
-            <ScrollView horizontal>
-    
-            </ScrollView>
+            <View style={styles.iconRow}>
+                <TouchableOpacity 
+                    style={styles.iconBtn} 
+                    onPress={(() => console.log('OPEN MAP'))}>
+                    <Ionicons name="map-outline" size={24} color={Colors.dark_grey} />
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                    style={styles.iconBtn}
+                    onPress={(() => console.log('LIST VIEW'))}>
+                    <Ionicons name="list-outline" size={24} color={Colors.dark_grey} />
+                </TouchableOpacity>
+
+                <Link style={styles.iconBtn} href={'/(modals)/taskCreation'} asChild>
+                    <TouchableOpacity 
+                        onPress={(() => console.log('ADD TASK'))}>
+                        <Ionicons name="add-circle-outline" size={24} color={Colors.dark_grey} />
+                    </TouchableOpacity>
+                </Link>
+
+            </View>
         </View>
     </SafeAreaView>
   );
@@ -36,7 +56,9 @@ const ExploreHeader = () => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: Colors.white,
-        height: 90,
+        height: 130,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: Colors.light_grey,    
     },
     actionRow: {
         flexDirection: 'row',
@@ -49,7 +71,7 @@ const styles = StyleSheet.create({
     filterBtn: {
         padding: 10,
         borderWidth: 1,
-        borderColor: Colors.light_grey,
+        borderColor: Colors.dark_grey,
         borderRadius: 24,
     },
     searchBtn: {
@@ -67,6 +89,14 @@ const styles = StyleSheet.create({
         shadowOpacity: .12,
         shadowRadius: 8,
         shadowOffset: { width: 1, height: 1 },
+    },
+    iconRow: {
+        flexDirection: 'row',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        },
+    iconBtn: {
+        marginLeft: 60,
     },
 });
 
