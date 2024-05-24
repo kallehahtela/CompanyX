@@ -1,57 +1,58 @@
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import Colors from "@/constants/Colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
 
 const ExploreHeader = () => {
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
-        <View style={styles.container}>
-            <View style={styles.actionRow}>
-                <Link href={'/(modals)/booking'} asChild>
-                    <TouchableOpacity style={styles.searchBtn}>
-                        <Ionicons name="search" size={24} />
-                        <View>
-                            <Text style={{ fontFamily: 'TE' }}>What to do?</Text>
-                            <Text style={{ fontFamily: 'TE' }}>Anytime · Save time · Earn cash</Text>
-                        </View>
-                    </TouchableOpacity>
-                </Link>
-                <TouchableOpacity 
-                    style={styles.filterBtn}
-                    onPress={(() => console.log('FILTER BUTTON'))}>
-                    <Ionicons name="filter-outline" size={24} color={Colors.dark_grey}/>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.iconRow}>
-                <TouchableOpacity 
-                    style={styles.iconBtn} 
-                    onPress={(() => console.log('OPEN MAP'))}>
-                    <Ionicons name="map-outline" size={24} color={Colors.dark_grey} />
-                </TouchableOpacity>
-
-                <TouchableOpacity 
-                    style={styles.iconBtn}
-                    onPress={(() => console.log('LIST VIEW'))}>
-                    <Ionicons name="list-outline" size={24} color={Colors.dark_grey} />
-                </TouchableOpacity>
-
-                <Link style={styles.iconBtn} href={'/(modals)/taskCreation'} asChild>
-                    <TouchableOpacity 
-                        onPress={(() => console.log('ADD TASK'))}>
-                        <Ionicons name="add-circle-outline" size={24} color={Colors.dark_grey} />
-                    </TouchableOpacity>
-                </Link>
-
-            </View>
-        </View>
-    </SafeAreaView>
-  );
-}
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
+          <View style={styles.container}>
+              <View style={styles.actionRow}>
+                  <Link href={'/(modals)/booking'} asChild>
+                      <TouchableOpacity style={styles.searchBtn}>
+                          <Ionicons name="search" size={24} />
+                          <View>
+                              <Text style={{ fontFamily: 'TE' }}>What to do?</Text>
+                              <Text style={{ fontFamily: 'TE' }}>Anytime · Save time · Earn cash</Text>
+                          </View>
+                      </TouchableOpacity>
+                  </Link>
+                  <TouchableOpacity 
+                      style={styles.filterBtn}
+                      onPress={(() => console.log('FILTER BUTTON'))}>
+                      <Ionicons name="filter-outline" size={24} color={Colors.dark_grey}/>
+                  </TouchableOpacity>
+              </View>
+  
+              <View style={styles.iconRow}>
+                  <TouchableOpacity 
+                      style={styles.iconBtn} 
+                      onPress={(() => console.log('OPEN MAP'))}>
+                      <Ionicons name="map-outline" size={24} color={Colors.dark_grey} />
+                  </TouchableOpacity>
+  
+                  <TouchableOpacity 
+                      style={styles.iconBtn}
+                      onPress={(() => console.log('LIST VIEW'))}>
+                      <Ionicons name="list-outline" size={24} color={Colors.dark_grey} />
+                  </TouchableOpacity>
+  
+                  <Link style={styles.iconBtn} href={'/(modals)/taskCreation'} asChild>
+                      <TouchableOpacity 
+                          onPress={(() => console.log('ADD TASK'))}>
+                          <Ionicons name="add-circle-outline" size={24} color={Colors.dark_grey} />
+                      </TouchableOpacity>
+                  </Link>
+  
+              </View>
+          </View>
+      </SafeAreaView>
+    );
+  }
 
 const styles = StyleSheet.create({
     container: {

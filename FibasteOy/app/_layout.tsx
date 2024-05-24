@@ -8,6 +8,7 @@ import { TouchableOpacity } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 
+
 const EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 // Cache the Clerk JWT
 const tokenCache = {
@@ -113,6 +114,21 @@ function RootLayoutNav() {
           ),
         }}
       />
+
+      <Stack.Screen 
+        name="(modals)/taskCreation"
+        options={{
+          title: 'Create a Task',
+          presentation: 'modal',
+          animation: 'fade',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()}>
+              <Ionicons name="close-outline" size={28} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      
     </Stack>
   );
 }

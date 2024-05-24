@@ -1,107 +1,139 @@
 import React, { useState } from "react";
 import { View, ScrollView, TextInput, TouchableOpacity, Text, StyleSheet, Modal, Button, Image } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { Ionicons } from "@expo/vector-icons";
 
 import ImagePicker from 'react-native-image-picker';
 
 import Colors from "@/constants/Colors";
 
 const TaskCreation = () => {
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [duration, setDuration] = useState("0");
-  const [description, setDescription] = useState("");
-  const [address, setAddress] = useState("");
-  const [image, setImage] = useState(null);
+    const [title, setTitle] = useState("");
+    const [price, setPrice] = useState("");
+    const [duration, setDuration] = useState("0");
+    const [description, setDescription] = useState("");
+    const [descriptionCount, setDescriptionCount] = useState(0); // New state variable for showing maximum characters
+    const [address, setAddress] = useState("");
+    const [image, setImage] = useState(null);
 
-  const handleAddButton = () => {
-    // TODO: Add task to the list
-  };
+    const handleDescriptionChange = (text) => {
+        if (text.length <= 200) { // check if the text is within the limit
+            setDescription(text);
+            setDescriptionCount(text.length); // update the character count
+        }
+    }
 
-  const [isPickerVisible, setPickerVisible] = useState(false);
+    const handleAddButton = () => {
+        // TODO: Add task to the list
+    };
 
-  const showPicker = () => {
-    setPickerVisible(true);
-  };
+    const [isPickerVisible, setPickerVisible] = useState(false);
 
-  const hidePicker = () => {
-    setPickerVisible(false);
-  };
+    const showPicker = () => {
+        setPickerVisible(true);
+    };
 
-  return (
-    <ScrollView style={styles.container}>
-        <View>
-            <Text style={styles.label}>Title</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Title"
-                placeholderTextColor={Colors.light_grey}
-                value={title}
-                onChangeText={setTitle}
-            />
-            <Text style={styles.label}>Price</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Price / min 10 €"
-                placeholderTextColor={Colors.light_grey}
-                value={price}
-                onChangeText={setPrice}
-            />
-            <Text style={styles.label}>Duration</Text>
-            <TouchableOpacity style={styles.input} onPress={showPicker}>
-                <Text style={{ color: Colors.light_grey}}>{duration} min</Text>
-            </TouchableOpacity>
+    const hidePicker = () => {
+        setPickerVisible(false);
+    };
 
-            <Modal visible={isPickerVisible} transparent={true} animationType="slide">
-                <View style={styles.modalView}>
-                    <View style={styles.pickerContainer}>
-                    <Picker
-                        selectedValue={duration}
-                        style={{ height: 50, width: 150 }}
-                        onValueChange={(itemValue, itemIndex) => setDuration(itemValue)}
-                    >
-                        <Picker.Item label="0 min" value="0" key={0}/>
-                        <Picker.Item label="15 min" value="15" key={15}/>
-                        <Picker.Item label="30 min" value="30" key={30}/>
-                        <Picker.Item label="45 min" value="45" key={45}/>
-                        <Picker.Item label="60 min" value="60" key={60}/>
-                        <Picker.Item label="75 min" value="75" key={75}/>
-                        <Picker.Item label="90 min" value="90" key={90}/>
-                        <Picker.Item label="105 min" value="105" key={105}/>
-                        <Picker.Item label="120 min" value="120" key={120}/>
-                    </Picker>
+    // Placeholder function for taking a photo
+    const takePhoto = () => {
+        // TODO: Implement photo capture
+    };
+
+    // Placeholder function for choosing a photo from the gallery
+    const choosePhoto = () => {
+        // TODO: Implement photo selection from gallery
+    };
+
+    return (
+        <ScrollView style={styles.container}>
+            <View>
+                <Text style={styles.label}>Title</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Title"
+                    placeholderTextColor={Colors.light_grey}
+                    value={title}
+                    onChangeText={setTitle}
+                />
+                <Text style={styles.label}>Price</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Price / min 10 €"
+                    placeholderTextColor={Colors.light_grey}
+                    value={price}
+                    onChangeText={setPrice}
+                />
+                <Text style={styles.label}>Duration</Text>
+                <TouchableOpacity style={styles.input} onPress={showPicker}>
+                    <Text style={{ color: Colors.light_grey}}>{duration} min</Text>
+                </TouchableOpacity>
+
+                <Modal visible={isPickerVisible} transparent={true} animationType="slide">
+                    <View style={styles.modalView}>
+                        <View style={styles.pickerContainer}>
+                        <Picker
+                            selectedValue={duration}
+                            style={{ height: 50, width: 150 }}
+                            onValueChange={(itemValue, itemIndex) => setDuration(itemValue)}
+                        >
+                            <Picker.Item label="0 min" value="0" key={0}/>
+                            <Picker.Item label="15 min" value="15" key={15}/>
+                            <Picker.Item label="30 min" value="30" key={30}/>
+                            <Picker.Item label="45 min" value="45" key={45}/>
+                            <Picker.Item label="60 min" value="60" key={60}/>
+                            <Picker.Item label="75 min" value="75" key={75}/>
+                            <Picker.Item label="90 min" value="90" key={90}/>
+                            <Picker.Item label="105 min" value="105" key={105}/>
+                            <Picker.Item label="120 min" value="120" key={120}/>
+                        </Picker>
+                        </View>
+                        <TouchableOpacity style={styles.doneButton} onPress={hidePicker}>
+                        <Text style={styles.doneButtonText}>Set Time</Text>
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity style={styles.doneButton} onPress={hidePicker}>
-                    <Text style={styles.doneButtonText}>Set Time</Text>
+                </Modal>
+
+                <View style={styles.imageButtonsContainer}>
+                    <TouchableOpacity style={styles.imageButton} onPress={takePhoto}>
+                        <Ionicons name="camera-outline" size={30} color={Colors.dark_grey} />
+                        <Text style={styles.imageButtonText}>Take Photo</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.imageButton} onPress={choosePhoto}>
+                        <Ionicons name="image-outline" size={30} color={Colors.dark_grey} />
+                        <Text style={styles.imageButtonText}>Choose Photo</Text>
                     </TouchableOpacity>
                 </View>
-            </Modal>
 
-            <Text style={styles.label}>Short Description</Text>
-            <TextInput
-                style={[styles.input, styles.largerInput]}
-                placeholder="Short Description"
-                placeholderTextColor={Colors.light_grey}
-                value={description}
-                onChangeText={setDescription}
-                multiline={true}
-            />
-            <Text style={styles.label}>Address</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Address"
-                placeholderTextColor={Colors.light_grey}
-                value={address}
-                onChangeText={setAddress}
-            />
-            
-            <TouchableOpacity style={styles.button} onPress={handleAddButton}>
-                <Text style={styles.addText}>Add</Text>
-            </TouchableOpacity>
-        </View>
-    </ScrollView>
-  );
-}
+                <Text style={styles.label}>Short Description</Text>
+                <TextInput
+                    style={[styles.input, styles.largerInput]}
+                    placeholder="Short Description"
+                    placeholderTextColor={Colors.light_grey}
+                    value={description}
+                    onChangeText={handleDescriptionChange} // use the new handler
+                    multiline={true}
+                />
+                <Text style={styles.countText}>{descriptionCount}/200</Text>
+                
+                <Text style={styles.label}>Address</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Address"
+                    placeholderTextColor={Colors.light_grey}
+                    value={address}
+                    onChangeText={setAddress}
+                />
+                
+                <TouchableOpacity style={styles.button} onPress={handleAddButton}>
+                    <Text style={styles.addText}>Add</Text>
+                </TouchableOpacity>
+            </View>
+            </ScrollView>
+        );
+    }
 
 const styles = StyleSheet.create({
     container: {
@@ -146,12 +178,13 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top',
     },
     button: {
-        alignItems: 'center',
         backgroundColor: Colors.fibasteBlue,
         borderRadius: 10,
         height: 60,
         padding: 10,
-        margin: 12,
+        alignItems: 'center',
+        marginTop: 20, // Add this
+        marginBottom: 50,
     },
     addText: {
         marginTop: 10,
@@ -178,6 +211,28 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
       },
+      imageButtonsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        margin: 12,
+    },
+    imageButton: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    imageButtonText: {
+        color: Colors.dark_grey,
+        fontFamily: 'TE',
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    countText: {
+        marginLeft: 12,
+        color: Colors.dark_grey,
+        fontFamily: 'TE',
+        fontSize: 14,
+    },
 });
 
 export default TaskCreation;
