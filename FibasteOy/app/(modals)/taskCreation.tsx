@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, ScrollView, TextInput, TouchableOpacity, Text, StyleSheet, Modal, Button, Image } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,7 +13,13 @@ const TaskCreation = () => {
     const [description, setDescription] = useState("");
     const [descriptionCount, setDescriptionCount] = useState(0); // New state variable for showing maximum characters
     const [address, setAddress] = useState("");
+
     const [image, setImage] = useState(null);
+    const [status, requestPermission] = ImagePicker.useCameraPermissions();
+
+    useEffect(() => {
+        requestPermission();
+    }, []);
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -25,17 +31,36 @@ const TaskCreation = () => {
 
         console.log(result);
 
-        if (!result.canceled) {
+        if (!result.cancelled) {
             setImage(result.assets[0].uri);
         }
     };
+
+    const openCamera = async () => {
+        // ask the user for permission to access camera
+        const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+            alert("You've refused to allow Fibaste to access your camera!");
+            return;
+        }
+
+        const result = await ImagePicker.launchCameraAsync();
+
+        // explore the result
+        console.log(result);
+
+        if (!result.cancelled) {
+            setImage(result.assets[0].uri);
+        }
+    }
 
     const handleImageReset = () => {
         setImage(null);
     }
 
     const handleDescriptionChange = (text) => {
-        if (text.length <= 200) { // check if the text is within the limit
+        if (text.length <= 150) { // check if the text is within the limit
             setDescription(text);
             setDescriptionCount(text.length); // update the character count
         }
@@ -55,24 +80,13 @@ const TaskCreation = () => {
         setPickerVisible(false);
     };
 
-    // Placeholder function for taking a photo
-    const takePhoto = () => {
-        // TODO: Implement photo capture
-    };
-
-    // Placeholder function for choosing a photo from the gallery
-    const choosePhoto = () => {
-        // TODO: Implement photo selection from gallery
-    };
-
-
     return (
         <ScrollView style={styles.container}>
             <View>
                 <Text style={styles.label}>Title</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Title"
+                    placeholder="Where do you need help?"
                     placeholderTextColor={Colors.light_grey}
                     value={title}
                     onChangeText={setTitle}
@@ -116,7 +130,7 @@ const TaskCreation = () => {
                 </Modal>
 
                 <View style={styles.imageButtonsContainer}>
-                    <TouchableOpacity style={styles.imageButton} onPress={takePhoto}>
+                    <TouchableOpacity style={styles.imageButton} onPress={openCamera}>
                         <Ionicons name="camera-outline" size={30} color={Colors.dark_grey} />
                         <Text style={styles.imageButtonText}>Take Photo</Text>
                     </TouchableOpacity>
@@ -143,13 +157,13 @@ const TaskCreation = () => {
                 <Text style={styles.label}>Short Description</Text>
                 <TextInput
                     style={[styles.input, styles.largerInput]}
-                    placeholder="Short Description"
+                    placeholder="Explain in a short terms what there is..."
                     placeholderTextColor={Colors.light_grey}
                     value={description}
                     onChangeText={handleDescriptionChange} // use the new handler
                     multiline={true}
                 />
-                <Text style={styles.countText}>{descriptionCount}/200</Text>
+                <Text style={styles.countText}>{descriptionCount}/150</Text>
                 
                 <Text style={styles.label}>Address</Text>
                 <TextInput
@@ -289,6 +303,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     countText: {
+        marginTop: -10,
         marginLeft: 12,
         color: Colors.dark_grey,
         fontFamily: 'TE',

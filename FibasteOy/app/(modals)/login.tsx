@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     marginVertical: 30,
   },
   seperator: {
-    fontFamily: "PoeOne",
+    fontFamily: "TE",
     color: Colors.dark_grey,
   },
   btnOutline: {
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   btnOutlineText: {
     color: Colors.black,
     fontSize: 16,
-    fontFamily: "PoeOne",
+    fontFamily: "TE",
   },
 });
 
