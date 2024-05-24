@@ -3,8 +3,7 @@ import { View, ScrollView, TextInput, TouchableOpacity, Text, StyleSheet, Modal,
 import { Picker } from "@react-native-picker/picker";
 import { Ionicons } from "@expo/vector-icons";
 
-import ImagePicker from 'react-native-image-picker';
-
+import * as ImagePicker from 'expo-image-picker';
 import Colors from "@/constants/Colors";
 
 const TaskCreation = () => {
@@ -15,6 +14,25 @@ const TaskCreation = () => {
     const [descriptionCount, setDescriptionCount] = useState(0); // New state variable for showing maximum characters
     const [address, setAddress] = useState("");
     const [image, setImage] = useState(null);
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.canceled) {
+            setImage(result.assets[0].uri);
+        }
+    };
+
+    const handleImageReset = () => {
+        setImage(null);
+    }
 
     const handleDescriptionChange = (text) => {
         if (text.length <= 200) { // check if the text is within the limit
@@ -46,6 +64,7 @@ const TaskCreation = () => {
     const choosePhoto = () => {
         // TODO: Implement photo selection from gallery
     };
+
 
     return (
         <ScrollView style={styles.container}>
@@ -101,9 +120,23 @@ const TaskCreation = () => {
                         <Ionicons name="camera-outline" size={30} color={Colors.dark_grey} />
                         <Text style={styles.imageButtonText}>Take Photo</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.imageButton} onPress={choosePhoto}>
+                    <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
                         <Ionicons name="image-outline" size={30} color={Colors.dark_grey} />
                         <Text style={styles.imageButtonText}>Choose Photo</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.imageContainer}>
+                    {image ? (
+                        <Image source={{ uri: image }} style={styles.image} />
+                    ): (
+                        <Text style={styles.imageText}>No image selected yet.</Text>
+                    )}
+                </View>
+
+                <View style={styles.iconContainer}>
+                    <TouchableOpacity onPress={handleImageReset}>
+                        <Ionicons name="trash-outline" size={24} color={Colors.dark_grey} />
                     </TouchableOpacity>
                 </View>
 
@@ -138,6 +171,34 @@ const TaskCreation = () => {
 const styles = StyleSheet.create({
     container: {
         padding: 20,
+    },
+    imageContainer: {
+        borderColor: Colors.light_grey,
+        borderWidth: 1,
+        borderRadius: 20,
+        marginTop: 20,
+        marginHorizontal: 30,
+        marginBottom: 13,
+        shadowColor: Colors.black,
+        shadowOffset: { width: 0, height: 2,},
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        height: 250,
+    },
+    imageText: {
+        textAlign: 'center',
+        paddingTop: 100,
+    },
+    image: {
+        flex: 1,
+        resizeMode: 'cover',
+        borderRadius: 20,
+        overflow: 'hidden',
+    },
+    iconContainer: {
+        padding: 20,
+        alignItems: 'center',
     },
     modalView: {
         flex: 1,
