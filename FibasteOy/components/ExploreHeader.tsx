@@ -29,25 +29,25 @@ const ExploreHeader = () => {
               </View>
   
               <View style={styles.iconRow}>
-                  <TouchableOpacity 
-                      style={styles.iconBtn} 
-                      onPress={(() => console.log('OPEN MAP'))}>
-                      <Ionicons name="map-outline" size={24} color={Colors.dark_grey} />
-                  </TouchableOpacity>
-  
-                  <TouchableOpacity 
-                      style={styles.iconBtn}
-                      onPress={(() => console.log('LIST VIEW'))}>
-                      <Ionicons name="list-outline" size={24} color={Colors.dark_grey} />
-                  </TouchableOpacity>
-  
-                  <Link style={styles.iconBtn} href={'/(modals)/taskCreation'} asChild>
-                      <TouchableOpacity 
-                          onPress={(() => console.log('ADD TASK'))}>
-                          <Ionicons name="add-circle-outline" size={24} color={Colors.dark_grey} />
-                      </TouchableOpacity>
-                  </Link>
-  
+                <Link style={styles.iconBtn} href={'/(modals)/map'} asChild>
+                    <TouchableOpacity
+                        onPress={() => console.log('OPEN MAP')}>
+                        <Ionicons name="map-outline" size={24} color={Colors.dark_grey} />
+                    </TouchableOpacity>
+                </Link>
+                
+                <TouchableOpacity 
+                    style={styles.iconBtn}
+                    onPress={(() => console.log('LIST VIEW'))}>
+                    <Ionicons name="list-outline" size={24} color={Colors.dark_grey} />
+                </TouchableOpacity>
+
+                <Link style={styles.iconBtn} href={'/(modals)/taskCreation'} asChild>
+                    <TouchableOpacity 
+                        onPress={(() => console.log('ADD TASK'))}>
+                        <Ionicons name="add-circle-outline" size={24} color={Colors.dark_grey} />
+                    </TouchableOpacity>
+                </Link>
               </View>
           </View>
       </SafeAreaView>

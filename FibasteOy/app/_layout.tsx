@@ -128,6 +128,20 @@ function RootLayoutNav() {
           ),
         }}
       />
+
+      <Stack.Screen 
+        name="(modals)/map"
+        options={{
+          title: 'Map',
+          presentation: 'card',
+          animation: 'fade',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()}>
+              <Ionicons name="close-outline" size={28} />
+            </TouchableOpacity>
+          )
+        }}
+      />
       
     </Stack>
   );

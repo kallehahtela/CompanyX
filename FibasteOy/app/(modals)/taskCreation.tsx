@@ -148,16 +148,23 @@ const TaskCreation = () => {
                     )}
                 </View>
 
-                <View style={styles.iconContainer}>
+                <View style={styles.imageButtonContainerCenter}>
+                    <TouchableOpacity style={styles.imageButton} onPress={handleImageReset}>
+                        <Ionicons name="trash-outline" size={30} color={Colors.dark_grey} />
+                        <Text style={styles.imageButtonText}>Reset Image</Text>
+                    </TouchableOpacity>
+                </View>
+
+                {/*<View style={styles.iconContainer}>
                     <TouchableOpacity onPress={handleImageReset}>
                         <Ionicons name="trash-outline" size={24} color={Colors.dark_grey} />
                     </TouchableOpacity>
-                </View>
+                </View>*/}
 
                 <Text style={styles.label}>Short Description</Text>
                 <TextInput
                     style={[styles.input, styles.largerInput]}
-                    placeholder="Explain in a short terms what there is..."
+                    placeholder="Explain the needed help..."
                     placeholderTextColor={Colors.light_grey}
                     value={description}
                     onChangeText={handleDescriptionChange} // use the new handler
@@ -289,6 +296,12 @@ const styles = StyleSheet.create({
       imageButtonsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        margin: 12,
+    },
+    imageButtonContainerCenter: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         margin: 12,
     },
     imageButton: {

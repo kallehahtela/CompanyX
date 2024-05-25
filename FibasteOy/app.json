@@ -30,8 +30,14 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app needs access to your photos to add them for tasks posts.",
-          "cameraPermission": "The app needs access to use camera to take images for tasks posts. "
+          "photosPermission": "Allow Fibaste access to your photos to add them for tasks posts.",
+          "cameraPermission": "Allow Fibaste access to use camera to take images for tasks posts. "
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow Fibaste to use your location"
         }
       ],
       "expo-router",
