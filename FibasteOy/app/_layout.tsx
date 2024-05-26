@@ -2,12 +2,15 @@ import { StatusBar } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { Stack, useRouter } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import * as SecureStore from "expo-secure-store";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 
+import * as SplashScreen from "expo-splash-screen";
+import * as SecureStore from "expo-secure-store";
+
+// Prevent the splash screen from auto-hiding before asset loading is complete.
+SplashScreen.preventAutoHideAsync();
 
 const EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 // Cache the Clerk JWT
@@ -27,9 +30,6 @@ const tokenCache = {
     }
   },
 };
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -53,13 +53,13 @@ export default function RootLayout() {
 
   return (
     <>
-    <StatusBar barStyle="dark-content" />
-      <ClerkProvider
-        publishableKey={EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
-        tokenCache={tokenCache}
-      >
-        <RootLayoutNav />
-      </ClerkProvider>
+      <StatusBar barStyle="dark-content" />
+        <ClerkProvider
+          publishableKey={EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
+          tokenCache={tokenCache}
+        >
+          <RootLayoutNav />
+        </ClerkProvider>
     </>
   );
 }

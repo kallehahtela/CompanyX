@@ -5,11 +5,13 @@ import { Ionicons } from "@expo/vector-icons";
 
 import * as ImagePicker from 'expo-image-picker';
 import Colors from "@/constants/Colors";
+import DummyTasks from "../listing/DummyTasks";
 
 const TaskCreation = () => {
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("");
     const [duration, setDuration] = useState("0");
+    const [urgency, setUrgency] = useState("low"); // default value
     const [description, setDescription] = useState("");
     const [descriptionCount, setDescriptionCount] = useState(0); // New state variable for showing maximum characters
     const [address, setAddress] = useState("");
@@ -17,10 +19,23 @@ const TaskCreation = () => {
     const [image, setImage] = useState(null);
     const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
+    // Permissions requested correctly
     useEffect(() => {
         requestPermission();
     }, []);
 
+    const handleUrgencyChange = (newUrgency) => {
+        setUrgency(newUrgency);
+        console.log(`Urgency set to: ${newUrgency}`);
+    };
+
+    const getButtonStyle = (newUrgency) => ({
+        ...styles.urgencyButton,
+        backgroundColor: urgency === newUrgency ? Colors.light_grey : Colors.light_grey,
+        opacity: urgency === newUrgency ? 1 : .3,
+    });
+
+    // Image Upload
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -31,7 +46,7 @@ const TaskCreation = () => {
 
         console.log(result);
 
-        if (!result.cancelled) {
+        if (!result.canceled) {
             setImage(result.assets[0].uri);
         }
     };
@@ -50,7 +65,7 @@ const TaskCreation = () => {
         // explore the result
         console.log(result);
 
-        if (!result.cancelled) {
+        if (!result.canceled) {
             setImage(result.assets[0].uri);
         }
     }
@@ -59,16 +74,12 @@ const TaskCreation = () => {
         setImage(null);
     }
 
-    const handleDescriptionChange = (text) => {
+    const handleDescriptionChange = (text: string) => {
         if (text.length <= 150) { // check if the text is within the limit
             setDescription(text);
             setDescriptionCount(text.length); // update the character count
         }
     }
-
-    const handleAddButton = () => {
-        // TODO: Add task to the list
-    };
 
     const [isPickerVisible, setPickerVisible] = useState(false);
 
@@ -78,6 +89,10 @@ const TaskCreation = () => {
 
     const hidePicker = () => {
         setPickerVisible(false);
+    };
+
+    const handleAddButton = () => {
+        // TODO: adding tasks in the array
     };
 
     return (
@@ -128,6 +143,26 @@ const TaskCreation = () => {
                         </TouchableOpacity>
                     </View>
                 </Modal>
+                
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={styles.label}>Urgency</Text>
+                    <TouchableOpacity onPress={() => console.log('INFORMATION ABOUT THE URGENCYr')}>
+                    <Ionicons style={styles.iconOutliner} name="information" size={14} color={Colors.black} />
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.urgencyButtonsContainer}>
+                    <TouchableOpacity style={getButtonStyle('low')} onPress={() => handleUrgencyChange('low')}>
+                    <Text style={styles.urgencyButtonText}>Low</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={getButtonStyle('medium')} onPress={() => handleUrgencyChange('medium')}>
+                    <Text style={styles.urgencyButtonText}>Medium</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={getButtonStyle('high')} onPress={() => handleUrgencyChange('high')}>
+                    <Text style={styles.urgencyButtonText}>High</Text>
+                    </TouchableOpacity>
+                </View>
 
                 <View style={styles.imageButtonsContainer}>
                     <TouchableOpacity style={styles.imageButton} onPress={openCamera}>
@@ -155,12 +190,6 @@ const TaskCreation = () => {
                     </TouchableOpacity>
                 </View>
 
-                {/*<View style={styles.iconContainer}>
-                    <TouchableOpacity onPress={handleImageReset}>
-                        <Ionicons name="trash-outline" size={24} color={Colors.dark_grey} />
-                    </TouchableOpacity>
-                </View>*/}
-
                 <Text style={styles.label}>Short Description</Text>
                 <TextInput
                     style={[styles.input, styles.largerInput]}
@@ -182,7 +211,7 @@ const TaskCreation = () => {
                 />
                 
                 <TouchableOpacity style={styles.button} onPress={handleAddButton}>
-                    <Text style={styles.addText}>Add</Text>
+                    <Text style={styles.addText}>Add Task</Text>
                 </TouchableOpacity>
             </View>
             </ScrollView>
@@ -220,6 +249,14 @@ const styles = StyleSheet.create({
     iconContainer: {
         padding: 20,
         alignItems: 'center',
+    },
+    iconOutliner: {
+        marginLeft: 10,
+        marginTop: 10,
+        padding: 5,
+        borderColor: Colors.light_grey,
+        borderWidth: 1,
+        borderRadius: 7,
     },
     modalView: {
         flex: 1,
@@ -321,6 +358,22 @@ const styles = StyleSheet.create({
         color: Colors.dark_grey,
         fontFamily: 'TE',
         fontSize: 14,
+    },
+    urgencyButtonsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        margin: 12,
+    },
+    urgencyButton: {
+        padding: 10,
+        //backgroundColor: Colors.light_grey,
+        borderRadius: 10,
+    },
+    urgencyButtonText: {
+        color: Colors.dark_grey,
+        fontFamily: 'TE',
+        fontWeight: 'bold',
+        fontSize: 16,
     },
 });
 

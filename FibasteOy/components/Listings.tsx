@@ -48,6 +48,8 @@ const Listings = ({ listings = DummyTasks }: Props) => {
           <View style={styles.infoContainer}>
               <Text>Price: {DummyTasks.price}</Text>
               <Text>Duration: {DummyTasks.duration}</Text>
+              <Text>Urgency: {DummyTasks.urgency}</Text>
+              <Text>Description: {DummyTasks.description}</Text>
               <Text>Address: {DummyTasks.address}</Text>
           </View>
         </View>
