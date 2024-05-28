@@ -2,6 +2,7 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
+import { SafeAreaView } from "react-native";
 
 const Layout = () => {
   return (

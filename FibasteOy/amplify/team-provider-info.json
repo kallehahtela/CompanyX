@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fibaste-dev-4ac2d-authRole",
+      "UnauthRoleArn": "arn:aws:iam::590183856269:role/amplify-fibaste-dev-4ac2d-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::590183856269:role/amplify-fibaste-dev-4ac2d-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-fibaste-dev-4ac2d-deployment",
+      "UnauthRoleName": "amplify-fibaste-dev-4ac2d-unauthRole",
+      "StackName": "amplify-fibaste-dev-4ac2d",
+      "StackId": "arn:aws:cloudformation:eu-north-1:590183856269:stack/amplify-fibaste-dev-4ac2d/45074400-1ce4-11ef-8058-0ef059c00c20",
+      "AmplifyAppId": "d2eicxvmaw0qqd"
+    }
+  }
+}

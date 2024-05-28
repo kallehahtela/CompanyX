@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 
+import { Amplify } from 'aws-amplify';
+import amplifyconfig from '@/src/amplifyconfiguration.json';
+Amplify.configure(amplifyconfig);
+
 import * as SplashScreen from "expo-splash-screen";
 import * as SecureStore from "expo-secure-store";
 
