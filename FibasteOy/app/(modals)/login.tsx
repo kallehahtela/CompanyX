@@ -37,6 +37,7 @@ const Page = () => {
       }
     } catch (err) {
       console.error("OAuth error: ", err);
+      console.log(Strategy);
     }
   };
 

@@ -6,15 +6,14 @@ import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 
-import { Amplify } from 'aws-amplify';
-import amplifyconfig from '@/src/amplifyconfiguration.json';
-Amplify.configure(amplifyconfig);
-
 import * as SplashScreen from "expo-splash-screen";
 import * as SecureStore from "expo-secure-store";
 
+import AnimatedSplashScreen from "@/components/AnimatedSplashScreen";
+import Animated, { FadeIn } from "react-native-reanimated";
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+//SplashScreen.preventAutoHideAsync();
 
 const EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 // Cache the Clerk JWT
@@ -36,6 +35,9 @@ const tokenCache = {
 };
 
 export default function RootLayout() {
+  const [appReady, setAppReady] = useState(false);
+  const [splashAnimationFinished, setSplashAnimationFinished] = useState(false);
+  
   const [loaded, error] = useFonts({
     TE: require('../assets/fonts/Teachers-VariableFont_wght.ttf'),
   });
@@ -47,12 +49,28 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded) {
-      SplashScreen.hideAsync();
+      //SplashScreen.hideAsync();
+      setAppReady(true);
     }
   }, [loaded]);
 
   if (!loaded) {
     return null;
+  }
+
+  console.log(appReady, splashAnimationFinished);
+
+  const showAnimatedSplash = !appReady || !splashAnimationFinished;
+  if (showAnimatedSplash) {
+    return (
+      <AnimatedSplashScreen 
+        onAnimationFinish={(isCancelled) => {
+        if (!isCancelled) {
+          setSplashAnimationFinished(true);
+        }
+      }}
+    />
+    )
   }
 
   return (
@@ -62,7 +80,9 @@ export default function RootLayout() {
           publishableKey={EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
           tokenCache={tokenCache}
         >
-          <RootLayoutNav />
+          <Animated.View style={{ flex: 1 }} entering={FadeIn.duration(400)}>
+            <RootLayoutNav/>
+          </Animated.View>
         </ClerkProvider>
     </>
   );
@@ -147,6 +167,20 @@ function RootLayoutNav() {
         }}
       />
       
+      <Stack.Screen 
+        name="(modals)/Animation"
+        options={{
+          title: 'Animation',
+          presentation: 'card',
+          animation: 'fade',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()}>
+              <Ionicons name="close-outline" size={28} />
+            </TouchableOpacity>
+          )
+        }}
+      />
     </Stack>
   );
+
 }

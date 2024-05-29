@@ -1,7 +1,6 @@
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
-import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
 import Colors from "@/constants/Colors";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -37,20 +36,20 @@ const ExploreHeader = () => {
                 </Link>
                 
                 <TouchableOpacity 
-                    style={styles.iconBtn}
-                    onPress={(() => console.log('LIST VIEW'))}>
-                    <Ionicons name="list-outline" size={24} color={Colors.dark_grey} />
-                </TouchableOpacity>
+                        style={styles.iconBtn}
+                        onPress={(() => console.log('LIST VIEW'))}>
+                        <Ionicons name="list-outline" size={24} color={Colors.dark_grey} />
+                 </TouchableOpacity>
 
                 <Link style={styles.iconBtn} href={'/(modals)/taskCreation'} asChild>
                     <TouchableOpacity 
-                        onPress={(() => console.log('ADD TASK'))}>
-                        <Ionicons name="add-circle-outline" size={24} color={Colors.dark_grey} />
+                            onPress={(() => console.log('ADD TASK'))}>
+                            <Ionicons name="add-circle-outline" size={24} color={Colors.dark_grey} />
                     </TouchableOpacity>
                 </Link>
-              </View>
-          </View>
-      </SafeAreaView>
+                </View>
+            </View>
+        </SafeAreaView>
     );
   }
 
