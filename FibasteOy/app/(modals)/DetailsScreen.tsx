@@ -11,11 +11,11 @@ AWS Amplify v6 Authentication`;
 const DetailsScreen = () => {
     return (
         <SafeAreaView edges={['bottom']} style={{ flex: 1 }}>
-            <Stack.Screen options={{ title: 'AWS AUTH' }} />
+            <Stack.Screen options={{ title: 'AWS' }} />
             <MarkdownDisplay>{description}</MarkdownDisplay>
 
-            <Link href={"/(modals)/AWS_AUTH"} asChild>
-                <Button title="Go to authenticate" />
+            <Link href={"/(modals)/protected"} asChild>
+                <Button title="Go to the protected page" />
             </Link>
         </SafeAreaView>
     );
